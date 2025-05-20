@@ -1,138 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>Login V18</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
-<body style="background-color: #666666;">
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form" onsubmit="login(event)">
-					<div class="login100-form-title p-b-43">
-						<img src="images/NetMorph.png" alt="Login Logo" style="max-width: 180px; height: auto;">
-					</div>
+	<head>
+		<title>Login V18</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+		<link rel="stylesheet" type="text/css" href="css/util.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+	</head>
+	<body style="background-color: #666666;">
 
-					<div class="wrap-input100 validate-input" data-validate="Valid email is required">
-						<input class="input100" type="text" id="email" name="email">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Email</span>
-					</div>
+		<div class="limiter">
+			<div class="container-login100">
+				<div class="wrap-login100">
+					<form class="login100-form validate-form" onsubmit="login(event)">
+						<div class="login100-form-title p-b-43">
+							<img src="images/NetMorph.png" alt="Login Logo" style="max-width: 180px; height: auto;">
+						</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Password is required">
-						<input class="input100" type="password" id="password" name="pass">
-						<span class="focus-input100"></span>
-						<span class="label-input100">Password</span>
-					</div>
+						<div class="wrap-input100 validate-input" data-validate="Valid email is required">
+							<input class="input100" type="text" id="email" name="email">
+							<span class="focus-input100"></span>
+							<span class="label-input100">Email</span>
+						</div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
-							Login
-						</button>
-					</div>
+						<div class="wrap-input100 validate-input" data-validate="Password is required">
+							<input class="input100" type="password" id="password" name="pass">
+							<span class="focus-input100"></span>
+							<span class="label-input100">Password</span>
+						</div>
 
-					<p id="error-message" style="color: red; margin-top: 15px;"></p>
-				</form>
-				<div class="login100-more" style="background-image: url('images/cloud.jpg');">
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" type="submit">
+								Login
+							</button>
+						</div>
+
+						<p id="error-message" style="color: red; margin-top: 15px;"></p>
+					</form>
+					<div class="login100-more" style="background-image: url('images/cloud.jpg');">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	
 
-	
-	
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<script src="vendor/animsition/js/animsition.min.js"></script>
+		<script src="vendor/bootstrap/js/popper.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<script src="vendor/select2/select2.min.js"></script>
+		<script src="vendor/daterangepicker/moment.min.js"></script>
+		<script src="vendor/daterangepicker/daterangepicker.js"></script>
+		<script src="vendor/countdowntime/countdowntime.js"></script>
+		<script src="js/main.js"></script>
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			document.querySelector("form").addEventListener("submit", login);
-		});
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				document.querySelector("form").addEventListener("submit", login);
+			});
 
-		async function login(event) {
-			event.preventDefault();
+			async function login(event) {
+				event.preventDefault();
 
-			const username = document.getElementById("email").value;
-			const password = document.getElementById("password").value;
+				const username = document.getElementById("email").value;
+				const password = document.getElementById("password").value;
 
-			console.log("Intentando login con:", username, password);
+				console.log("Intentando login con:", username, password);
 
-			try {
-				const response = await fetch("http://localhost:8000/auth/login", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/x-www-form-urlencoded"
-					},
-					body: new URLSearchParams({
-						username: username,
-						password: password
-					})
-				});
+				try {
+					const response = await fetch("/auth/login", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/x-www-form-urlencoded"
+						},
+						body: new URLSearchParams({
+							username: username,
+							password: password
+						})
+					});
 
-				const data = await response.json();
+					const data = await response.json();
 
-				if (response.ok) {
-					localStorage.setItem("jwt", data.access_token);
-					const payload = JSON.parse(atob(data.access_token.split(".")[1]));
-					const role = payload.role;
+					if (response.ok) {
+						localStorage.setItem("jwt", data.access_token);
+						const payload = JSON.parse(atob(data.access_token.split(".")[1]));
+						const role = payload.role;
 
-					if (role === "admin") {
-						window.location.href = "home_admin.html";
-					} else if (role === "cliente") {
-						window.location.href = "home_cliente.html";
+						if (role === "admin") {
+							window.location.href = "home_admin.html";
+						} else if (role === "cliente") {
+							window.location.href = "home_cliente.html";
+						} else {
+							document.getElementById("error-message").innerText = "Rol desconocido";
+						}
 					} else {
-						document.getElementById("error-message").innerText = "Rol desconocido";
+						document.getElementById("error-message").innerText = data.detail || "Credenciales incorrectas";
 					}
-				} else {
-					document.getElementById("error-message").innerText = data.detail || "Credenciales incorrectas";
+				} catch (err) {
+					console.error("Error en conexión:", err);
+					document.getElementById("error-message").innerText = "Error de conexión con el servidor";
 				}
-			} catch (err) {
-				console.error("Error en conexión:", err);
-				document.getElementById("error-message").innerText = "Error de conexión con el servidor";
 			}
-		}
-	</script>
-
-
-</body>
+		</script>
+	</body>
 </html>
