@@ -85,31 +85,49 @@
 	<script src="js/main.js"></script>
 
 	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			document.querySelector("form").addEventListener("submit", login);
+		});
+
 		async function login(event) {
-			event.preventDefault(); // evita recarga
+			event.preventDefault();
 
 			const username = document.getElementById("email").value;
 			const password = document.getElementById("password").value;
 
+			console.log("Intentando login con:", username, password);
+
 			try {
-				const response = await fetch("http://10.0.10.1:8000/auth/login", {
+				const response = await fetch("http://localhost:8000/auth/login", {
 					method: "POST",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ username, password })
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					body: new URLSearchParams({
+						username: username,
+						password: password
+					})
 				});
 
 				const data = await response.json();
 
 				if (response.ok) {
-					localStorage.setItem("jwt", data.token);
-					const payload = JSON.parse(atob(data.token.split('.')[1]));
-					if (payload.role === "admin") {
+					localStorage.setItem("jwt", data.access_token);
+					const payload = JSON.parse(atob(data.access_token.split(".")[1]));
+					const role = payload.role;
+
+					if (role === "admin") {
 						window.location.href = "home_admin.html";
-					} else {
+					} else if (role === "cliente") {
 						window.location.href = "home_cliente.html";
+					} else {
+						document.getElementById("error-message").innerText = "Rol desconocido";
 					}
+				} else {
+					document.getElementById("error-message").innerText = data.detail || "Credenciales incorrectas";
 				}
 			} catch (err) {
+				console.error("Error en conexión:", err);
 				document.getElementById("error-message").innerText = "Error de conexión con el servidor";
 			}
 		}
