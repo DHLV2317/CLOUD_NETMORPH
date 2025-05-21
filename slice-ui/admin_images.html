@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <title>Administrar Imágenes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+      body { display: flex; margin: 0; font-family: Arial, sans-serif; }
+      nav { width: 220px; background: #2c3e50; color: white; height: 100vh; padding: 20px; }
+      nav h2 { margin-bottom: 20px; }
+      nav a { display: block; margin-bottom: 10px; color: white; text-decoration: none; }
+      main { flex-grow: 1; padding: 30px; background: #ecf0f1; }
+      h2 { color: #2c3e50; }
+      input[type="text"] { width: 60%; padding: 8px; margin-bottom: 10px; }
+      button { padding: 6px 12px; margin-left: 5px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+      td, th { border: 1px solid #bbb; padding: 8px; text-align: left; }
+      td:last-child { text-align: right; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div>
+        <h2><i class="bi bi-tools" style="margin-right: 8px;"></i> Admin Panel</h2>
+        <a href="home_admin.html"><i class="bi bi-bar-chart-line-fill"></i> Recursos</a>
+        <a href="#"><i class="bi bi-pc-display-horizontal"></i> Slices</a>
+        <a href="admin_images.html"><i class="bi bi-hdd-fill"></i> Imágenes</a>
+        <a href="#"><i class="bi bi-diagram-3-fill"></i> Plantillas</a>
+      </div>
+      <div>
+        <a href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
+      </div>
+    </nav>
+
+    <main>
+      <h2>Administrar Imágenes</h2>
+
+      <h3>Subir imagen por URL</h3>
+      <input type="text" id="image-url" placeholder="URL de la imagen .img o .qcow2">
+      <button onclick="subirPorURL()">Subir por URL</button>
+      <p id="download-status"></p>
+
+      <h3>Imágenes guardadas</h3>
+      <table id="image-table">
+        <thead>
+          <tr><th>Nombre</th><th></th></tr>
+        </thead>
+        <tbody id="image-list"></tbody>
+      </table>
+    </main>
+
+    <script>
+      const token = localStorage.getItem("jwt");
+
+      function logout() {
+        localStorage.removeItem("jwt");
+        window.location.href = "index.html";
+      }
+
+      async function subirPorURL() {
+        const url = document.getElementById("image-url").value;
+        const status = document.getElementById("download-status");
+        status.textContent = "Descargando imagen...";
+
+        try {
+          const res = await fetch("/images/download", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({ url: url })
+          });
+
+          const data = await res.json();
+          if (res.ok) {
+            status.textContent = "Imagen descargada correctamente.";
+            document.getElementById("image-url").value = "";
+            cargarImagenes();
+          } else {
+            status.textContent = "Error: " + data.detail;
+          }
+        } catch (err) {
+          status.textContent = "Error de red al descargar.";
+          console.error(err);
+        }
+      }
+
+      async function cargarImagenes() {
+        const res = await fetch("/images/list", {
+          headers: { Authorization: "Bearer " + token }
+        });
+
+        const images = await res.json();
+        const tableBody = document.getElementById("image-list");
+        tableBody.innerHTML = "";
+
+        images.forEach(img => {
+          const row = document.createElement("tr");
+          row.innerHTML = `<td>${img.filename}</td><td><button onclick="eliminarImagen(${img.id})">Eliminar</button></td>`;
+          tableBody.appendChild(row);
+        });
+      }
+
+      async function eliminarImagen(id) {
+        if (!confirm("¿Eliminar esta imagen?")) return;
+
+        const res = await fetch(`/images/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: "Bearer " + token }
+        });
+
+        if (res.ok) {
+          cargarImagenes();
+        } else {
+          alert("Error al eliminar imagen");
+        }
+      }
+
+      cargarImagenes();
+    </script>
+  </body>
+</html>

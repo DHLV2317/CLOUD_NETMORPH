@@ -15,36 +15,14 @@
     </style>
   </head>
   <body>
-    <nav style="display: flex; flex-direction: column; justify-content: space-between;">
-      <div>
-        <h2 style="font-size: 20px; margin-bottom: 30px;">
-          <i class="bi bi-tools" style="font-size: 1.5rem; margin-right: 8px;"></i> Admin Panel
-        </h2>
-
-        <a href="#" onclick="showSection('recursos')" style="font-size: 16px;">
-          <i class="bi bi-bar-chart-line-fill" style="font-size: 1.3rem; margin-right: 10px;"></i> Recursos
-        </a>
-
-        <a href="#" onclick="showSection('slices')" style="font-size: 16px;">
-          <i class="bi bi-pc-display-horizontal" style="font-size: 1.3rem; margin-right: 10px;"></i> Slices
-        </a>
-
-        <a href="#" onclick="showSection('imagenes')" style="font-size: 16px;">
-          <i class="bi bi-hdd-fill" style="font-size: 1.3rem; margin-right: 10px;"></i> Imágenes
-        </a>
-
-        <a href="#" onclick="showSection('plantillas')" style="font-size: 16px;">
-          <i class="bi bi-diagram-3-fill" style="font-size: 1.3rem; margin-right: 10px;"></i> Plantillas
-        </a>
-      </div>
-
-      <div>
-        <a href="#" onclick="logout()" style="font-size: 16px; margin-top: 40px;">
-          <i class="bi bi-box-arrow-right" style="font-size: 1.3rem; margin-right: 10px;"></i> Cerrar sesión
-        </a>
-      </div>
+    <nav>
+      <h2><i class="bi bi-tools" style="margin-right: 8px;"></i>Admin Panel</h2>
+      <a href="home_admin.html"><i class="bi bi-bar-chart-line-fill"></i> Recursos</a>
+      <a href="#"><i class="bi bi-pc-display-horizontal"></i> Slices</a>
+      <a href="admin_images.html"><i class="bi bi-hdd-fill"></i> Imágenes</a>
+      <a href="#"><i class="bi bi-diagram-3-fill"></i> Plantillas</a>
+      <a href="index.html" onclick="logout()" style="position: absolute; bottom: 20px;"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
     </nav>
-
     <main>
       <section id="recursos" class="section">
         <h2>Uso de recursos por Worker</h2>

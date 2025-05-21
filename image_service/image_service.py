@@ -41,7 +41,7 @@ Base = declarative_base()
 
 # Modelo SQLAlchemy
 class Image(Base):
-    __tablename__ = "images"
+    _tablename_ = "images"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100))
     path = Column(Text)
@@ -113,3 +113,29 @@ def download_image(req: ImageDownloadRequest, db: Session = Depends(get_db), use
     db.commit()
 
     return {"message": "Imagen descargada correctamente", "filename": filename}
+
+# Listar imágenes
+@app.get("/images/list")
+def list_images(db: Session = Depends(get_db), user: dict = Depends(get_current_user)):
+    images = db.query(Image).filter(Image.owner_id == user["id"]).all()
+    return [
+        {"id": img.id, "name": img.name, "filename": img.filename, "uploaded_at": img.uploaded_at.isoformat()}
+        for img in images
+    ]
+
+# Eliminar imagen por ID
+@app.delete("/images/delete/{image_id}")
+def delete_image(image_id: int, db: Session = Depends(get_db), user: dict = Depends(get_current_user)):
+    image = db.query(Image).filter(Image.id == image_id, Image.owner_id == user["id"]).first()
+    if not image:
+        raise HTTPException(status_code=404, detail="Imagen no encontrada")
+
+    try:
+        if os.path.exists(image.path):
+            os.remove(image.path)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al eliminar archivo: {str(e)}")
+
+    db.delete(image)
+    db.commit()
+    return {"message": "Imagen eliminada"}
